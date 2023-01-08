@@ -1,0 +1,15 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class DiedMenu : MonoBehaviour
+{
+    public void RestartButton()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void ExitButton()
+    {
+        SceneManager.LoadScene(0);
+    }
+}
