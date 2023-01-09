@@ -1,15 +1,23 @@
 using System.Collections;
+using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [DllImport("__Internal")]
+    private static extern void ShowAdv();
+    [DllImport("__Internal")]
+    private static extern void SetToLeaderboard(int value);
+
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _speed;
 
     [SerializeField] private GameObject _diedMenu;
 
     [SerializeField] private AudioSource _audio;
+    [SerializeField] private AudioSource _audioGold;
+    [SerializeField] private AudioSource _audioGround;
 
     private Rigidbody _rigidbody;
     private Vector3 _input;
@@ -38,24 +46,37 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.TryGetComponent(out EnemyGold enemyG))
+        {
+            collision.gameObject.SetActive(false);
             _point += 1;
+            _audioGold.Play();
+        }
         if (collision.collider.TryGetComponent(out EnemyGame enemy))
+        {
             Die();
+        }
         if (collision.collider.TryGetComponent(out Ground ground))
+        {
             _isGround = true;
+            _audioGround.Play();
+        }
     }
 
     private void Die()
     {
+        ShowAdv();
         StopCoroutine(Point());
         gameObject.SetActive(false);
         Time.timeScale = 0;
         _diedMenu.SetActive(true);
         _audio.Play();
 
-        if (Progress.Instance.PlayerInfo._point >= _point)
+        if (Progress.Instance.PlayerInfo._point < _point)
         {
             Progress.Instance.PlayerInfo._point = _point;
+            Progress.Instance.Save();
+            SetToLeaderboard(Progress.Instance.PlayerInfo._point);
+
         }
     }
 

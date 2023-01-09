@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerInfo
 {
     public int _point;
+    public bool _LDM;
 }
 
 public class Progress : MonoBehaviour
@@ -26,7 +27,7 @@ public class Progress : MonoBehaviour
             transform.parent = null;
             DontDestroyOnLoad(gameObject);
             Instance = this;
-           // LoadExtern();
+            LoadExtern();
         }
         else
         {
@@ -41,12 +42,13 @@ public class Progress : MonoBehaviour
             PlayerInfo = new PlayerInfo();
             Save();
         }
+
     }
 
     public void Save()
     {
         string jsonString = JsonUtility.ToJson(PlayerInfo);
-       // SaveExtern(jsonString);
+        SaveExtern(jsonString);
     }
 
     public void SetPlayerInfo(string value)
