@@ -5,24 +5,28 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _speed; 
 
-    private void Start()
-    {
-        StartCoroutine(SpeedUp());
-    }
+    //private void Start()
+    //{
+    //    StartCoroutine(SpeedUp());
+    //}
     private void FixedUpdate()
     {
         transform.Translate(Vector3.back * _speed * Time.fixedDeltaTime);
 
+        _speed += 0.01f * Time.fixedDeltaTime / 5;
         if (_speed <= 25)
         {
-            StopCoroutine(SpeedUp());
+            return;
         }
     }
 
-    private IEnumerator SpeedUp()
-    {
-        var seconds = new WaitForSeconds(5);
-        yield return seconds;
-        _speed += 0.1f;
-    }
+    //private IEnumerator SpeedUp()
+    //{
+    //    while(true)
+    //    {
+    //        var seconds = new WaitForSeconds(5);
+    //        _speed += 0.1f;
+    //        yield return seconds;
+    //    }
+    //}
 }

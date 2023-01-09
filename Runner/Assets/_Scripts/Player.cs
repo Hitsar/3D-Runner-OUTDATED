@@ -37,7 +37,9 @@ public class Player : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.TryGetComponent(out Enemy enemy))
+        if (collision.collider.TryGetComponent(out EnemyGold enemyG))
+            _point += 1;
+        if (collision.collider.TryGetComponent(out EnemyGame enemy))
             Die();
         if (collision.collider.TryGetComponent(out Ground ground))
             _isGround = true;
@@ -59,9 +61,12 @@ public class Player : MonoBehaviour
 
     private IEnumerator Point()
     {
-        var seconds = new WaitForSeconds(1);
-        _point++;
-        text.text = _point.ToString();
-        yield return seconds;
+        while (true)
+        {
+            var seconds = new WaitForSeconds(2);
+            _point++;
+            text.text = _point.ToString();
+            yield return seconds;
+        }
     }
 }

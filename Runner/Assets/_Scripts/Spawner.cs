@@ -29,12 +29,6 @@ public class Spawner : ObjectPool
                 SetEnemy(enemy, _spawner[spawnPointNumber].position);
             }
         }
-
-        if (_secondForSpawn <= 0.3)
-        {
-            StopCoroutine(SecondsSpawn());
-        }
-
     }
 
     private void SetEnemy(GameObject enemy, Vector3 spawnPoint)
@@ -44,8 +38,11 @@ public class Spawner : ObjectPool
     }
     private IEnumerator SecondsSpawn()
     {
-        var seconds = new WaitForSeconds(5);
-        _secondForSpawn -= 0.1f;
-        yield return seconds;
+        while(_secondForSpawn >= 0.3f)
+        {
+            var seconds = new WaitForSeconds(5);
+            _secondForSpawn -= 0.01f;
+            yield return seconds;
+        }
     }
 }
