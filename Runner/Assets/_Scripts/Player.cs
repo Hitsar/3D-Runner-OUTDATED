@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
         if (collision.collider.TryGetComponent(out EnemyGold enemyG))
         {
             collision.gameObject.SetActive(false);
-            _point += 1;
+            _point++;
             _audioGold.Play();
         }
         if (collision.collider.TryGetComponent(out EnemyGame enemy))
@@ -64,9 +64,12 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        ShowAdv();
-        StopCoroutine(Point());
         gameObject.SetActive(false);
+
+        ShowAdv();
+
+        StopCoroutine(Point());
+
         Time.timeScale = 0;
         _diedMenu.SetActive(true);
         _audio.Play();
@@ -76,7 +79,6 @@ public class Player : MonoBehaviour
             Progress.Instance.PlayerInfo._point = _point;
             Progress.Instance.Save();
             SetToLeaderboard(Progress.Instance.PlayerInfo._point);
-
         }
     }
 
