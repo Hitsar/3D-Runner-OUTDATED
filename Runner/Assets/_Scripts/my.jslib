@@ -67,26 +67,4 @@ mergeInto(LibraryManager.library, {
         }
         })
     },
-
-    AddCoinsExtern : function(value){
-        ysdk.adv.showRewardedVideo({
-          callbacks: {
-          onOpen: () => {
-            console.log('Video ad open.');
-        },
-          onRewarded: () => {
-            console.log('Rewarded!');
-            myGameInstance.SendMessage("CoinManager", "AddCoins", value);
-        },
-          onClose: () => {
-            console.log('Video ad closed.');
-        }, 
-          onError: (e) => {
-            console.log('Error while open video ad:', e);
-        }
-        }
-        })
-    },
-
-
   });

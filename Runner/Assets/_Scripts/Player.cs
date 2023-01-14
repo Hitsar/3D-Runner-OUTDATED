@@ -38,13 +38,16 @@ public class Player : MonoBehaviour
         _rigidbody.MovePosition(_rigidbody.position + _input * _speed * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.Space) && _isGround)
-        {
             _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
             _isGround = false;
-        }
     }
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.collider.TryGetComponent(out Ground ground))
+        {
+            _isGround = true;
+            _audioGround.Play();
+        }
         if (collision.collider.TryGetComponent(out EnemyGold enemyG))
         {
             collision.gameObject.SetActive(false);
@@ -54,11 +57,6 @@ public class Player : MonoBehaviour
         if (collision.collider.TryGetComponent(out EnemyGame enemy))
         {
             Die();
-        }
-        if (collision.collider.TryGetComponent(out Ground ground))
-        {
-            _isGround = true;
-            _audioGround.Play();
         }
     }
 
