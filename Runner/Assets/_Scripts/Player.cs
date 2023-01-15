@@ -19,13 +19,13 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource _audioGold;
     [SerializeField] private AudioSource _audioGround;
 
+    [SerializeField] private TextMeshProUGUI text;
+    private int _point;
+
     private Rigidbody _rigidbody;
     private Vector3 _input;
 
-    private bool _isGround;
-
-    private int _point;
-    [SerializeField] private TextMeshProUGUI text;
+    private bool _isGround = true;
 
     private void Start()
     {
@@ -38,8 +38,10 @@ public class Player : MonoBehaviour
         _rigidbody.MovePosition(_rigidbody.position + _input * _speed * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.Space) && _isGround)
+        {
             _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
             _isGround = false;
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {

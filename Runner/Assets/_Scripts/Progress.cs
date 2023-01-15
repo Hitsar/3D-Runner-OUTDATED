@@ -1,7 +1,5 @@
 using System.Runtime.InteropServices;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 [System.Serializable]
 public class PlayerInfo
