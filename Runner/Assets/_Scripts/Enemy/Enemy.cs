@@ -10,8 +10,6 @@ public class Enemy : MonoBehaviour
 
         _speed += 0.01f * Time.fixedDeltaTime / 5;
         if (_speed <= 25)
-        {
             return;
-        }
     }
 }
