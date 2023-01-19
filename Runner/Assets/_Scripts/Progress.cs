@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerInfo
 {
     public int _point;
-    public bool _LDM;
 }
 
 public class Progress : MonoBehaviour
