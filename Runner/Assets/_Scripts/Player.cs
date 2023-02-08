@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     private int _point;
 
     private Rigidbody _rigidbody;
-    private Vector3 _input;
+    private Vector3 _moveInput;
 
     private bool _isGround = true;
 
@@ -34,8 +34,8 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        _input.x = Input.GetAxis("Horizontal");
-        _rigidbody.MovePosition(_rigidbody.position + _input * _speed * Time.deltaTime);
+        _moveInput.x = Input.GetAxis("Horizontal");
+        _rigidbody.MovePosition(_rigidbody.position + _moveInput * _speed * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.Space) && _isGround)
         {
@@ -64,8 +64,6 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        gameObject.SetActive(false);
-
         ShowAdv();
 
         StopCoroutine(Point());
@@ -74,11 +72,11 @@ public class Player : MonoBehaviour
         _diedMenu.SetActive(true);
         _audio.Play();
 
-        if (Progress.Instance.PlayerInfo._point < _point)
+        if (Progress.Instance.PlayerInfo.Point < _point)
         {
-            Progress.Instance.PlayerInfo._point = _point;
+            Progress.Instance.PlayerInfo.Point = _point;
+            SetToLeaderboard(Progress.Instance.PlayerInfo.Point);
             Progress.Instance.Save();
-            SetToLeaderboard(Progress.Instance.PlayerInfo._point);
         }
     }
 

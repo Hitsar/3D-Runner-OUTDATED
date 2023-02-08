@@ -2,14 +2,16 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 
 [System.Serializable]
+
 public class PlayerInfo
 {
-    public int _point;
+    public int Point;
 }
 
 public class Progress : MonoBehaviour
 {
     public PlayerInfo PlayerInfo;
+
     [DllImport("__Internal")]
     private static extern void SaveExtern(string date);
     [DllImport("__Internal")]
@@ -24,7 +26,9 @@ public class Progress : MonoBehaviour
             transform.parent = null;
             DontDestroyOnLoad(gameObject);
             Instance = this;
+#if UNITY_WEBGL
             LoadExtern();
+#endif
         }
         else
         {
@@ -32,20 +36,12 @@ public class Progress : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Backspace))
-        {
-            PlayerInfo = new PlayerInfo();
-            Save();
-        }
-
-    }
-
     public void Save()
     {
         string jsonString = JsonUtility.ToJson(PlayerInfo);
+#if UNITY_WEBGL
         SaveExtern(jsonString);
+#endif
     }
 
     public void SetPlayerInfo(string value)

@@ -1,31 +1,5 @@
 mergeInto(LibraryManager.library, {
 
-  	Hello: function () {
-    	window.alert("Hello, world!");
-    	console.log("Hello, world!");
-  	},
-
-	GiveMePlayerData: function () {
-    	myGameInstance.SendMessage('Yandex', 'SetName', player.getName());
-    	myGameInstance.SendMessage('Yandex', 'SetPhoto', player.getPhoto("medium"));
-  	},
-
-  	RateGame: function () {
-    
-    	ysdk.feedback.canReview()
-        .then(({ value, reason }) => {
-            if (value) {
-                ysdk.feedback.requestReview()
-                    .then(({ feedbackSent }) => {
-                        console.log(feedbackSent);
-                    })
-            } else {
-                console.log(reason)
-            }
-        })
-  	},
-
-
 	SaveExtern: function(date) {
     	var dateString = UTF8ToString(date);
     	var myobj = JSON.parse(dateString);
@@ -45,14 +19,6 @@ mergeInto(LibraryManager.library, {
         lb.setLeaderboardScore('Top', value);
       });
   	},
-
-  GetLang: function () {
-    var lang = ysdk.environment.i18n.lang;
-    var bufferSize = lengthBytesUTF8(lang) + 1;
-    var buffer = _malloc(bufferSize);
-    stringToUTF8(lang, buffer, bufferSize);
-    return buffer;
-    },
 
     ShowAdv : function(){
         ysdk.adv.showFullscreenAdv({

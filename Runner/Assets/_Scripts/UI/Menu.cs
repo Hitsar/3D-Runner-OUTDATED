@@ -7,11 +7,12 @@ public class Menu : MonoBehaviour
 {
     [DllImport("__Internal")]
     private static extern void ShowAdv();
+
     [SerializeField] private TextMeshProUGUI _text;
 
     private void Start()
     {
-        _text.text = Progress.Instance.PlayerInfo._point.ToString();
+        _text.text = Progress.Instance.PlayerInfo.Point.ToString();
         ShowAdv();
     }
     public void StartGameButton()

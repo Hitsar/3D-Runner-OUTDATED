@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     {
         transform.Translate(Vector3.back * _speed * Time.fixedDeltaTime);
 
-        _speed += 0.01f * Time.fixedDeltaTime / 5;
+        _speed += 0.01f * Time.fixedDeltaTime / 1;
         if (_speed <= 25)
             return;
     }
